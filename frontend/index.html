@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Voting DApp</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-vote-yea"></i> Blockchain Voting DApp</h1>
+            <p class="greeting">Decentralized voting system powered by Ethereum smart contracts. Vote securely and transparently on blockchain.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="card welcome-card">
+            <div class="welcome-content">
+                <div class="welcome-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Secure Voting</h2>
+                <p>Cast your vote on the blockchain with complete transparency and immutability. Your vote is recorded permanently and cannot be tampered with.</p>
+            </div>
+        </section>
+
+        <!-- Wallet Connection Section -->
+        <section class="card">
+            <h2><i class="fas fa-wallet"></i> Wallet Connection</h2>
+            <div class="connection-status">
+                <div class="status-item">
+                    <span class="status-label">Account:</span>
+                    <span id="account-label" class="status-value">Not connected</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Network:</span>
+                    <span id="network-label" class="status-value">Unknown</span>
+                </div>
+            </div>
+            <div class="row">
+                <button id="btn-connect" class="primary">
+                    <i class="fas fa-link"></i> Connect MetaMask
+                </button>
+            </div>
+        </section>
+
+        <!-- Contract Configuration -->
+        <section class="card">
+            <h2><i class="fas fa-cog"></i> Contract Configuration</h2>
+            <div class="row">
+                <label for="contract-address">Contract Address</label>
+                <input id="contract-address" placeholder="0x..." />
+                <button id="btn-set-address" class="secondary">
+                    <i class="fas fa-check"></i> Set Address
+                </button>
+            </div>
+        </section>
+
+        <!-- Voting Status -->
+        <section class="card">
+            <h2><i class="fas fa-chart-bar"></i> Voting Status</h2>
+            <div class="voting-info">
+                <div class="info-item">
+                    <span class="info-label">Voting Start:</span>
+                    <span id="voting-start" class="info-value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Voting End:</span>
+                    <span id="voting-end" class="info-value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Voting Ended:</span>
+                    <span id="voting-ended" class="info-value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Admin:</span>
+                    <span id="admin-address" class="info-value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Winner:</span>
+                    <span id="winner" class="info-value">-</span>
+                </div>
+            </div>
+            <div class="row mt-sm">
+                <button id="btn-refresh" class="secondary">
+                    <i class="fas fa-sync-alt"></i> Refresh Status
+                </button>
+            </div>
+        </section>
+
+        <!-- Vote Results -->
+        <section class="card">
+            <h2><i class="fas fa-poll"></i> Vote Results</h2>
+            <div class="results-container">
+                <div class="result-item">
+                    <div class="result-label">Proposal A</div>
+                    <div class="result-bar">
+                        <div id="progress-a" class="result-progress"></div>
+                    </div>
+                    <div id="count-a" class="result-count">0 votes</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Proposal B</div>
+                    <div class="result-bar">
+                        <div id="progress-b" class="result-progress"></div>
+                    </div>
+                    <div id="count-b" class="result-count">0 votes</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Functions -->
+        <section class="card">
+            <h2><i class="fas fa-user-shield"></i> Admin Functions</h2>
+            <div class="admin-functions">
+                <div class="row">
+                    <label for="register-address">Register Voter</label>
+                    <input id="register-address" placeholder="0x..." />
+                    <button id="btn-register" class="secondary">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voting Section -->
+        <section class="card">
+            <h2><i class="fas fa-vote-yea"></i> Cast Your Vote</h2>
+            <div class="voting-options">
+                <button id="btn-vote-a" class="vote-btn vote-a">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Vote for Proposal A</span>
+                </button>
+                <button id="btn-vote-b" class="vote-btn vote-b">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Vote for Proposal B</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Messages Log -->
+        <section class="card">
+            <h2><i class="fas fa-terminal"></i> Transaction Log</h2>
+            <div class="log-container">
+                <pre id="messages" class="messages-log" aria-live="polite">[System] Voting DApp initialized and ready.
+[System] Connect your MetaMask wallet and set the contract address to begin.
+[System] Make sure you're connected to the correct network (Sepolia testnet recommended).</pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <small class="muted">
+                <i class="fas fa-heart"></i> Built with love | Decentralized Voting System
+            </small>
+        </div>
+    </footer>
+
+    <script src="./app.js" defer></script>
+</body>
+</html>
+
+
+
+
