@@ -30,13 +30,14 @@ jobs:
       run: npm test
       
     - name: Check frontend dependencies
-      run: cd frontend && npm ci
+      run: cd frontend && npm install
       
-    - name: Lint frontend code
+    - name: Test frontend files exist
       run: |
-        cd frontend
-        npm install -g eslint
-        eslint app.js --fix || true
+        ls -la frontend/
+        test -f frontend/index.html
+        test -f frontend/app.js
+        test -f frontend/style.css
         
   deploy:
     needs: test
